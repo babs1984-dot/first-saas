@@ -1,0 +1,78 @@
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from openai import OpenAI
+import os
+
+app = FastAPI(title="المساعد الإداري الذكي API")
+
+# تفعيل الـ CORS لتسمح لواجهتك الأمامية (HTML/JS) بالاتصال بالخلفية
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # في بيئة الإنتاج استبدلها برابط موقعك فقط
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# تعيين مفتاح OpenAI (يفضل وضعه في متغيرات البيئة)
+# os.environ["OPENAI_API_KEY"] = "ضع_مفتاحك_هنا"
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY", "YOUR_OPENAI_API_KEY"))
+
+# نماذج البيانات المدخلة (Data Models)
+class TextPayload(BaseModel):
+    text: str
+
+class CircularPayload(BaseModel):
+    topic: str
+    tone: str # رسمي، ودي، حازم
+    circular_type: str # تعميم، قرار، دعوة
+
+---
+
+# 1. خدمة محاضر الاجتماعات: استخراج القرارات والمهام
+@app.post("/api/meetings/extract")
+async def extract_meeting_minutes(payload: TextPayload):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[
+                {"role": "system", "content": "أنت مساعد إداري خبير. قم بتحليل نص الاجتماع التالي واستخرج منه: 1. القرارات النهائية المعتمدة. 2. قائمة بالمهام الموزعة مع تحديد المسؤول عن كل مهمة إن وجد. صغ المخرجات بنقاط واضحة واحترافية باللغة العربية."},
+                {"role": "user", "content": payload.text}
+            ]
+        )
+        return {"result": response.choices[0].message.content}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# 2. خدمة إعداد التعاميم
+@app.post("/api/circulars/generate")
+async def generate_circular(payload: CircularPayload):
+    try:
+        prompt = f"قم بصياغة {payload.circular_type} رسمي ومحكم حول الموضوع التالي: '{payload.topic}'. يجب أن تكون نبرة الصياغة {payload.tone}. التزم بالهيكل الرسمي للتعاميم الإدارية الخليجية/العربية (البسملة، التوجيه، المحتوى، الخاتمة)."
+        
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[
+                {"role": "system", "content": "أنت مستشار قانوني وإداري محترف في صياغة الخطابات والقرارات المؤسسية."},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        return {"result": response.choices[0].message.content}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# 3. خدمة تلخيص النصوص
+@app.post("/api/text/summarize")
+async def summarize_text(payload: TextPayload):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[
+                {"role": "system", "content": "قم بتلخيص النص التالي بأسلوب 'التقرير التنفيذي' (Executive Summary). ركز على الأرقام، التواريخ، والنتائج الرئيسية، واجعل الملخص مكثفاً وموجزاً في نقاط."},
+                {"role": "user", "content": payload.text}
+            ]
+        )
+        return {"result": response.choices[0].message.content}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
