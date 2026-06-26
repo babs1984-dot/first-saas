@@ -3,13 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المساعد الإداري الذكي</title>
+    <title>المساعد الإداري الذكي - Smart Admin Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #10b981;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            color: #333;
+        }
+        .card p {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <h1>المساعد الإداري الذكي</h1>
 
-    <p>مرحبًا بك في أول مشروع SaaS الخاص بي.</p>
+    <div class="header">
+        <h1>المساعد الإداري الذكي 🤖</h1>
+        <p>مرحباً بك يا أيمن في لوحة التحكم الخاصة بمشروعك</p>
+    </div>
 
-    <button>إنشاء خطاب</button>
+    <div class="grid-container">
+        <div class="card">
+            <h3>✍️ كتابة الخطابات الرسمية</h3>
+            <p>توليد خطابات احترافية في ثوانٍ</p>
+        </div>
+        <div class="card">
+            <h3>📝 محاضر الاجتماعات</h3>
+            <p>توثيق وتنظيم مخرجات الاجتماع</p>
+        </div>
+        <div class="card">
+            <h3>📢 إعداد التعاميم</h3>
+            <p>صياغة تعاميم إدارية دقيقة</p>
+        </div>
+        <div class="card">
+            <h3>🔍 تلخيص النصوص</h3>
+            <p>استخراج خلاصة التقارير الطويلة بالذكاء الاصطناعي</p>
+        </div>
+    </div>
+
 </body>
-</html>
+</html></html>
