@@ -4,170 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المساعد الإداري الذكي</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --border-color: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-            --shadow-hover: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        /* رأس الصفحة */
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 10px;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        /* شبكة البطاقات المتجاوبة */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            width: 100%;
-            max-width: 1100px;
-            padding: 10px;
-        }
-
-        /* تصميم البطاقة */
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* تأثير التمرير فوق البطاقة */
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--primary);
-        }
-
-        /* خط زينة علوي يظهر عند التمرير */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--primary);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-
-        /* الأيقونات */
-        .icon-container {
-            width: 60px;
-            height: 60px;
-            background-color: #eff6ff;
-            color: var(--primary);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px auto;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover .icon-container {
-            background-color: var(--primary);
-            color: #ffffff;
-        }
-
-        /* النصوص داخل البطاقة */
-        .card h2 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 12px;
-        }
-
-        .card p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col items-center justify-center p-6">
 
-    <header>
-        <h1>المساعد الإداري الذكي</h1>
-        <p>منصتك المتكاملة لأتمتة المهام المكتبية والإدارية باستخدام الذكاء الاصطناعي</p>
-    </header>
+    <!-- العنوان الرئيسي -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-3">المساعد الإداري الذكي</h1>
+        <p class="text-gray-500 text-lg">منصتك المتكاملة لأتمتة المهام المكتبية والإدارية باستخدام الذكاء الاصطناعي</p>
+    </div>
 
-    <main class="features-grid">
+    <!-- شبكة البطاقات -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
         
-        <div class="card" onclick="location.href='#meetings'">
-            <div class="icon-container">📝</div>
-            <h2>محاضر الاجتماعات</h2>
-            <p>توثيق وتنظيم مخرجات الاجتماعات بدقة عالية واستخراج التوصيات والمهام فوراً.</p>
+        <!-- بطاقة 1 -->
+        <div onclick="openModal('meetingsModal')" class="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer text-center">
+            <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-5"><i class="fa-regular fa-file-lines"></i></div>
+            <h2 class="text-xl font-bold mb-3 text-gray-800">محاضر الاجتماعات</h2>
+            <p class="text-gray-500 text-sm leading-relaxed">تنظيم مخرجات الاجتماعات بدقة عالية واستخراج التوصيات والمهام فوراً.</p>
         </div>
 
-        <div class="card" onclick="location.href='#circulars'">
-            <div class="icon-container">📢</div>
-            <h2>إعداد التعاميم</h2>
-            <p>صياغة خطابات وتعاميم إدارية رسمية متوافقة مع الأنظمة وبأسلوب احترافي مخصص.</p>
+        <!-- بطاقة 2 -->
+        <div onclick="openModal('circularsModal')" class="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer text-center">
+            <div class="w-14 h-14 bg-red-50 text-red-500 rounded-full flex items-center justify-center text-2xl mx-auto mb-5"><i class="fa-solid fa-bullhorn"></i></div>
+            <h2 class="text-xl font-bold mb-3 text-gray-800">إعداد التعاميم</h2>
+            <p class="text-gray-500 text-sm leading-relaxed">صياغة خطابات وتعاميم إدارية رسمية متوافقة مع الأنظمة وبأسلوب احترافي مخصص.</p>
         </div>
 
-        <div class="card" onclick="location.href='#summary'">
-            <div class="icon-container">🔍</div>
-            <h2>تلخيص النصوص</h2>
-            <p>استخراج خلاصات ذكية وموجزة من التقارير والمستندات المطولة بذكاء واختصار.</p>
+        <!-- بطاقة 3 -->
+        <div onclick="openModal('summaryModal')" class="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer text-center">
+            <div class="w-14 h-14 bg-teal-50 text-teal-500 rounded-full flex items-center justify-center text-2xl mx-auto mb-5"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <h2 class="text-xl font-bold mb-3 text-gray-800">تلخيص النصوص</h2>
+            <p class="text-gray-500 text-sm leading-relaxed">استخراج خلاصة ذكية وموجزة من التقارير والمستندات المطولة بذكاء واختصار.</p>
         </div>
+    </div>
 
-    </main>
+    <!-- ================= النافذة المنبثقة: محاضر الاجتماعات ================= -->
+    <div id="meetingsModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h3 class="text-lg font-bold text-gray-900">خيارات محاضر الاجتماعات</h3>
+                <button onclick="closeModal('meetingsModal')" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="space-y-3">
+                <button class="w-full text-right p-3 rounded-xl border border-gray-100 hover:border-blue-500 hover:bg-blue-50/50 transition flex items-center gap-3">
+                    <i class="fa-solid fa-microphone text-blue-500"></i> تفريغ وتحليل الملفات الصوتية
+                </button>
+                <button class="w-full text-right p-3 rounded-xl border border-gray-100 hover:border-blue-500 hover:bg-blue-50/50 transition flex items-center gap-3">
+                    <i class="fa-solid fa-square-check text-blue-500"></i> استخراج القرارات والتوصيات
+                </button>
+                <button class="w-full text-right p-3 rounded-xl border border-gray-100 hover:border-blue-500 hover:bg-blue-50/50 transition flex items-center gap-3">
+                    <i class="fa-solid fa-list-check text-blue-500"></i> توزيع المهام وجدولتها
+                </button>
+            </div>
+        </div>
+    </div>
 
+    <!-- ================= النافذة المنبثقة: إعداد التعاميم ================= -->
+    <div id="circularsModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h3 class="text-lg font-bold text-gray-900">خيارات إعداد التعاميم</h3>
+                <button onclick="closeModal('circularsModal')" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="space-y-3">
+                <button class="w-full text-right p-3 rounded-xl border border-gray-100 hover:border-red-500 hover:bg-red-50/50 transition flex items-center gap-3">
+                    <i class="fa-solid fa-pen-to-square text-red-500"></i> اختيار نوع الخطاب/التعميم
+                </button>
+                <button class="w-full text-right p-3 rounded-xl border border-gray-100 hover:border-red-500 hover:bg-red-50/50 transition flex items-center gap-3">
+                    <i class="fa-solid fa-sliders text-red-500"></i> ضبط نبرة الصوت (رسمي/ودي)
+                </button>
+                <button class="w-full text-right p-3 rounded-xl border border-gray-100 hover:border-red-500 hover:bg-red-50/50 transition flex items-center gap-3">
+                    <i class="fa-solid fa-scale-balanced text-red-500"></i> دمج الأنظمة واللوائح القانونية
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= النافذة المنبثقة: تلخيص النصوص ================= -->
+    <div id="summaryModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h3 class="text-lg font-bold text-gray-900">خيارات تلخيص النصوص</h3>
+                <button onclick="closeModal('summaryModal')" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="space-y-3">
+                <button class="w-full text-right p-3 rounded-xl border border-gray-100 hover:border-teal-500 hover:bg-teal-50/50 transition flex items-center gap-3">
+                    <i class="fa-solid fa-compress text-teal-500"></i> تحديد حجم الملخص ونوعه
+                </button>
+                <button class="w-full text-right p-3 rounded-xl border border-gray-100 hover:border-teal-500 hover:bg-teal-50/50 transition flex items-center gap-3">
+                    <i class="fa-solid fa-key text-teal-500"></i> استخراج الكلمات المفتاحية والأرقام
+                </button>
+                <button class="w-full text-right p-3 rounded-xl border border-gray-100 hover:border-teal-500 hover:bg-teal-50/50 transition flex items-center gap-3">
+                    <i class="fa-solid fa-file-arrow-up text-teal-500"></i> رفع ملف (PDF / Word) مباشرة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript للتحكم بظهور النوافذ بسلاسة -->
+    <script>
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('.transform').classList.remove('scale-95');
+                modal.querySelector('.transform').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.add('opacity-0');
+            modal.querySelector('.transform').classList.remove('scale-100');
+            modal.querySelector('.transform').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
 </body>
 </html>
