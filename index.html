@@ -132,7 +132,7 @@
         }
 
         // إرسال الطلبات العامة (للمحاضر والملخص)
-        async def function sendRequest(endpoint, inputId, outputId) {
+        async function sendRequest(endpoint, inputId, outputId) {
             const textValue = document.getElementById(inputId).value;
             const outputDiv = document.getElementById(outputId);
             if(!textValue) return alert('الرجاء إدخال النص أولاً');
