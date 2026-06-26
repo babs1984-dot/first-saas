@@ -3,78 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المساعد الإداري الذكي - Smart Admin Assistant</title>
+    <title>المساعد الإداري الذكي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --shadow-hover: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
         }
-        .header {
+
+        /* رأس الصفحة */
+        header {
             text-align: center;
-            padding: 20px;
-            background-color: #10b981;
-            color: white;
-            border-radius: 8px;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
         }
-        .grid-container {
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* شبكة البطاقات المتجاوبة */
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1100px;
+            padding: 10px;
         }
+
+        /* تصميم البطاقة */
         .card {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
         }
+
+        /* تأثير التمرير فوق البطاقة */
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
         }
-        .card h3 {
-            color: #333;
+
+        /* خط زينة علوي يظهر عند التمرير */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* الأيقونات */
+        .icon-container {
+            width: 60px;
+            height: 60px;
+            background-color: #eff6ff;
+            color: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .icon-container {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
+        /* النصوص داخل البطاقة */
+        .card h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
         .card p {
-            color: #666;
-            font-size: 14px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
         }
     </style>
-</head <head>
-    <meta charset="UTF-8">
-    <title>المساعد الإداري الذكي</title>
-    
-    <link rel="stylesheet" href="style.css">
 </head>
-<"body dir="rtl>
+<body>
 
-    <div class="header">
-        <h1>المساعد الإداري الذكي 🤖</h1>
-        <p>مرحباً بك يا أيمن في لوحة التحكم الخاصة بمشروعك</p>
-    </div>
+    <header>
+        <h1>المساعد الإداري الذكي</h1>
+        <p>منصتك المتكاملة لأتمتة المهام المكتبية والإدارية باستخدام الذكاء الاصطناعي</p>
+    </header>
 
-    <div class="grid-container">
-        <div class="card">
-            <h3>✍️ كتابة الخطابات الرسمية<h3/>
-            <p>توليد خطابات احترافية في ثوانٍ</p>
+    <main class="features-grid">
+        
+        <div class="card" onclick="location.href='#meetings'">
+            <div class="icon-container">📝</div>
+            <h2>محاضر الاجتماعات</h2>
+            <p>توثيق وتنظيم مخرجات الاجتماعات بدقة عالية واستخراج التوصيات والمهام فوراً.</p>
         </div>
-        <div class="card">
-            <h3>📝 محاضر الاجتماعات</h3>
-            <p>توثيق وتنظيم مخرجات الاجتماع</p>
+
+        <div class="card" onclick="location.href='#circulars'">
+            <div class="icon-container">📢</div>
+            <h2>إعداد التعاميم</h2>
+            <p>صياغة خطابات وتعاميم إدارية رسمية متوافقة مع الأنظمة وبأسلوب احترافي مخصص.</p>
         </div>
-        <div class="card">
-            <h3>📢 إعداد التعاميم</h3>
-            <p>صياغة تعاميم إدارية دقيقة</p>
+
+        <div class="card" onclick="location.href='#summary'">
+            <div class="icon-container">🔍</div>
+            <h2>تلخيص النصوص</h2>
+            <p>استخراج خلاصات ذكية وموجزة من التقارير والمستندات المطولة بذكاء واختصار.</p>
         </div>
-        <div class="card">
-            <h3>🔍 تلخيص النصوص</h3>
-            <p>استخراج خلاصة التقارير الطويلة بالذكاء الاصطناعي</p>
-        </div>
-    </div>
+
+    </main>
 
 </body>
 </html>
